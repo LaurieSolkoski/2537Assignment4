@@ -11,7 +11,13 @@ const getPokemonData = async () => {
             const randomId = Math.floor(Math.random() * 151) + 1; // Generate a random ID between 1 and 151 (for Gen 1 Pokémon)
             const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${randomId}`);
             const pokeData = await res.json();
-            const pokemon = {name: pokeData.name, url: pokeData.url, imageFront: pokeData.sprites.front_default, imageBack: pokeData.sprites.back_default};
+            const pokemon = {
+                name: pokeData.name,
+                url: pokeData.url,
+                imageFront: pokeData.sprites.other["official-artwork"].front_default,
+                imageBack: pokeData.sprites.other["official-artwork"].front_default
+            };
+            
             pokemonData.push(pokemon);
         }
         // Duplicating the pokemon data to create pairs
