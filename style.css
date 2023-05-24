@@ -68,6 +68,23 @@ header {
 }
 
 
+body.dark-mode {
+  background-color: #333;
+  color: white;
+}
+
+body.dark-mode .card {
+  background-color: #555;
+}
+
+body.dark-mode #game_grid {
+  border-color: white;
+}
+
+body.dark-mode #themes .btn-dark {
+  background-color: white;
+  color: #333;
+}
 
 
 

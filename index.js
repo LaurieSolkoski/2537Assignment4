@@ -51,6 +51,14 @@ const renderCards = () => {
 };
 
 const setup = () => {
+    $("#dark").on("click", function() {
+        $("body").addClass("dark-mode");
+      });
+      
+      $("#light").on("click", function() {
+        $("body").removeClass("dark-mode");
+      });
+      
     $(".card").on("click", function () {
         if ($(this).hasClass("flip") || $(this).hasClass("matched") || $(".flip").length == 2) {
             return; // do nothing if card is already flipped or matched, or if two cards are already flipped
