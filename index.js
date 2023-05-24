@@ -2,6 +2,9 @@ let firstCard = undefined;
 let secondCard = undefined;
 let clicks = 0;
 let pokemonData = [];
+let matches = 0;
+let remaining = 0; // Initialized later after pokemonData is fully populated
+
 
 // Fetch Pokémon data
 const getPokemonData = async () => {
@@ -17,19 +20,22 @@ const getPokemonData = async () => {
                 imageFront: pokeData.sprites.other["official-artwork"].front_default,
                 imageBack: pokeData.sprites.other["official-artwork"].front_default
             };
-            
             pokemonData.push(pokemon);
         }
         // Duplicating the pokemon data to create pairs
         pokemonData = [...pokemonData, ...pokemonData];
         // Shuffling the array to randomize the card positions
         pokemonData.sort(() => Math.random() - 0.5);
+
+        // Initialize remaining matches after Pokemon data has been fetched and duplicated
+        remaining = pokemonData.length / 2; 
+        $('#left').text(remaining);
+
         renderCards();
     } catch (error) {
         console.error('Error:', error);
     }
 };
-
 
 // Render cards
 const renderCards = () => {
@@ -43,7 +49,6 @@ const renderCards = () => {
     });
     setup();
 };
-
 
 const setup = () => {
     $(".card").on("click", function () {
@@ -62,6 +67,12 @@ const setup = () => {
                 // If the cards match, add the matched class and remove the flip class
                 $(firstCard).addClass("matched").removeClass("flip");
                 $(secondCard).addClass("matched").removeClass("flip");
+                // Increment the match count and decrement the remaining match count
+                matches++;
+                remaining--;
+                // Update the counts in the HTML
+                $('#matches').text(matches);
+                $('#left').text(remaining);
                 // Remove the click event from these cards
                 $(firstCard).off("click");
                 $(secondCard).off("click");
