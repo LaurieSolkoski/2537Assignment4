@@ -20,6 +20,7 @@ body {
   transition: transform 1s;
   perspective: 1000px;
   transform-style: preserve-3d;
+  transform-origin: center right;
   
 }
 
@@ -42,13 +43,11 @@ img {
   transform: rotateY(0); /* Show the back face by default */
 }
 
-.card.flip .front_face {
-  transform: rotateY(0); /* Rotate to front when card is flipped */
+.card.flip {
+  transform: translateX(-100%) rotateY(-180deg);
+  transition: transform 2s;
 }
 
-.card.flip .back_face {
-  transform: rotateY(-180deg); /* Rotate to back when card is flipped */
-}
 
 .card.matched .front_face,
 .card.matched .back_face {

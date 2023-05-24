@@ -101,11 +101,13 @@ const setup = () => {
         $(this).addClass("flip");
         clicks++;
         $("#clicks").text(clicks);
-
+    
         if (!firstCard) {
             firstCard = $(this);
+            setTimeout(() => { $(firstCard).removeClass("flip"); }, 2000);  // Flip card back after 2 seconds
         } else {
             secondCard = $(this);
+            setTimeout(() => { $(secondCard).removeClass("flip"); }, 2000);  // Flip card back after 2 seconds
             if ($(firstCard).find(".front_face").attr('src') == $(secondCard).find(".front_face").attr('src')) {
                 // If the cards match, add the matched class and remove the flip class
                 $(firstCard).addClass("matched").removeClass("flip");
