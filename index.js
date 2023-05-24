@@ -5,9 +5,25 @@ let pokemonData = [];
 let matches = 0;
 let remaining = 0; // Initialized later after pokemonData is fully populated
 
+const updateTime = () => {
+    time++;
+    let countdown = 20 - time;
+    $("#timer").text(time);
+    $("#countdown").text(countdown); //display countdown
+    if (countdown <= 0) { // Stop the game when countdown reaches 0
+        clearInterval(timerInterval);
+        alert("Time's up! Game over.");
+    }
+};
+
+
 
 // Fetch Pokémon data
 const getPokemonData = async () => {
+    time = 0; // Reset the time
+    $("#s").text(time); // Initially set time to 0
+    $("#countdown").text(20); // Initially set countdown to 20
+    timerInterval = setInterval(updateTime, 1000); // Update the time every second
     try {
         pokemonData = [];
         for (let i = 0; i < 3; i++) {
@@ -28,7 +44,7 @@ const getPokemonData = async () => {
         pokemonData.sort(() => Math.random() - 0.5);
 
         // Initialize remaining matches after Pokemon data has been fetched and duplicated
-        remaining = pokemonData.length / 2; 
+        remaining = pokemonData.length / 2;
         $('#left').text(remaining);
 
         renderCards();
@@ -43,22 +59,22 @@ const renderCards = () => {
     pokemonData.forEach((pokemon, index) => {
         const card = $('<div>').addClass('card');
         const frontFace = $('<img>').addClass('front_face').attr('src', pokemon.imageFront).attr('id', `card${index}`);
-        const backFace = $('<img>').addClass('back_face').attr('src', 'back.webp'); 
-        card.append(backFace, frontFace); 
+        const backFace = $('<img>').addClass('back_face').attr('src', 'back.webp');
+        card.append(backFace, frontFace);
         gameGrid.append(card);
     });
     setup();
 };
 
 const setup = () => {
-    $("#dark").on("click", function() {
+    $("#dark").on("click", function () {
         $("body").addClass("dark-mode");
-      });
-      
-      $("#light").on("click", function() {
+    });
+
+    $("#light").on("click", function () {
         $("body").removeClass("dark-mode");
-      });
-      
+    });
+
     $(".card").on("click", function () {
         if ($(this).hasClass("flip") || $(this).hasClass("matched") || $(".flip").length == 2) {
             return; // do nothing if card is already flipped or matched, or if two cards are already flipped
